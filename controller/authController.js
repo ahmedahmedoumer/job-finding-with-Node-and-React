@@ -1,13 +1,15 @@
 import User from '../models/User.js' 
 import validator from 'express-validator'
 import LoginValidation from '../validation/LoginValidation.js'
+import BadRequestError from '../errors/index.js'
 const {check,validationresult}=validator
+
 const register = async(req,res,next)=>{
 try {
   const create=await User.create(req.body)
   res.status(201).send("successefully registerd user").json({create})
 } catch (error) {
- next(error);
+ throw new BadRequestError("something wrong");
 }
 }
 const updateUser = async(req,res)=>{
